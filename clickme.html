@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Click Me Button</title>
+</head>
+<body>
+
+<button id="clickButton">Click Me</button>
+
+<script>
+document.getElementById("clickButton").addEventListener("click", function() {
+  // Create a timestamp
+  const timestamp = new Date().toISOString();
+
+  // Prepare the data to send to the server
+  const eventData = {
+    eventName: "clicked",
+    timestamp: timestamp
+  };
+saveEvent();
+
+  async function saveEvent() {
+  
+  
+
+  try {
+    const response = await fetch('http://localhost:3000/saveEvent', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(eventData)
+    });
+
+    if (response.ok) {
+      alert('Event saved successfully!');
+    } else {
+      alert('Failed to save event');
+    }
+  } catch (error) {
+    alert('Error occurred while saving the event');
+    console.error('Error:', error);
+  }
+}
+
+});
+</script>
+
+</body>
+</html>
